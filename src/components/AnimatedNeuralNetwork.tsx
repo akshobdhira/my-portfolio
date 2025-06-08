@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -17,6 +16,7 @@ interface Connection {
 }
 
 const AnimatedNeuralNetwork = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [nodes] = useState<Node[]>([
     // Input layer
     { id: 'i1', x: 15, y: 20, size: 8, color: 'from-neon-blue to-neon-purple' },
@@ -54,6 +54,17 @@ const AnimatedNeuralNetwork = () => {
   const [connections, setConnections] = useState<Connection[]>([]);
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
     // Create connections between layers
     const newConnections: Connection[] = [];
     
@@ -87,8 +98,33 @@ const AnimatedNeuralNetwork = () => {
   };
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    <motion.div 
+      className="absolute inset-0 pointer-events-none overflow-hidden"
+      animate={{
+        x: mousePosition.x * 10,
+        y: mousePosition.y * 10,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 50,
+        damping: 30,
+        mass: 1
+      }}
+    >
+      <motion.svg 
+        className="w-full h-full" 
+        viewBox="0 0 100 100" 
+        preserveAspectRatio="xMidYMid slice"
+        animate={{
+          rotateX: mousePosition.y * 5,
+          rotateY: mousePosition.x * 5,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 100,
+          damping: 20
+        }}
+      >
         {/* Animated connections */}
         {connections.map((connection, index) => {
           const fromPos = getNodePosition(connection.from);
@@ -130,7 +166,7 @@ const AnimatedNeuralNetwork = () => {
             <stop offset="100%" stopColor="rgb(236, 72, 153)" stopOpacity="0.6" />
           </linearGradient>
         </defs>
-      </svg>
+      </motion.svg>
 
       {/* Animated nodes */}
       {nodes.map((node, index) => (
@@ -147,12 +183,24 @@ const AnimatedNeuralNetwork = () => {
           animate={{ 
             opacity: [0.4, 1, 0.4],
             scale: [0.8, 1.2, 0.8],
+            x: mousePosition.x * (node.size * 0.3),
+            y: mousePosition.y * (node.size * 0.3),
           }}
           transition={{
             delay: index * 0.1,
             duration: 3 + (index * 0.1),
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
+            x: {
+              type: "spring",
+              stiffness: 100,
+              damping: 15
+            },
+            y: {
+              type: "spring",
+              stiffness: 100,
+              damping: 15
+            }
           }}
         />
       ))}
@@ -185,7 +233,7 @@ const AnimatedNeuralNetwork = () => {
           />
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 
