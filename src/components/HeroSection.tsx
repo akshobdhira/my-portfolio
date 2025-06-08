@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import FloatingIcons from '@/components/FloatingIcons';
+import AnimatedNeuralNetwork from '@/components/AnimatedNeuralNetwork';
 
 const HeroSection = () => {
   const handleDownloadResume = () => {
@@ -22,7 +22,7 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-      <FloatingIcons />
+      <AnimatedNeuralNetwork />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         <motion.div
