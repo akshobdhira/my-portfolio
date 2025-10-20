@@ -1,51 +1,172 @@
-
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
+interface YouTubeVideo {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  duration: string;
+  views: string;
+  publishDate: string;
+  url: string;
+  tags: string[];
+}
+
+interface ChannelStats {
+  subscriberCount: string;
+  videoCount: string;
+  viewCount: string;
+  channelTitle: string;
+  channelUrl: string;
+}
+
 const YouTubeSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  const [videos, setVideos] = useState<YouTubeVideo[]>([]);
+  const [channelStats, setChannelStats] = useState<ChannelStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Mock YouTube videos data (in real implementation, this would come from YouTube API)
-  const videos = [
-    {
-      id: "1",
-      title: "Building a Full-Stack MERN Application from Scratch",
-      description: "Complete tutorial on creating a modern web application using MongoDB, Express.js, React, and Node.js with authentication and deployment.",
-      thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400",
-      duration: "45:32",
-      views: "12.5k",
-      publishDate: "2024-01-20",
-      url: "https://youtube.com/watch?v=example1",
-      tags: ["React", "Node.js", "MongoDB", "Tutorial"]
-    },
-    {
-      id: "2",
-      title: "Machine Learning with Python: Predicting Stock Prices",
-      description: "Learn how to build a machine learning model to predict stock prices using Python, TensorFlow, and historical market data.",
-      thumbnail: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400",
-      duration: "35:45",
-      views: "8.7k",
-      publishDate: "2024-01-15",
-      url: "https://youtube.com/watch?v=example2",
-      tags: ["Python", "Machine Learning", "TensorFlow", "Finance"]
-    },
-    {
-      id: "3",
-      title: "CS Interview Preparation: Data Structures & Algorithms",
-      description: "Essential data structures and algorithms every computer science student should know for technical interviews.",
-      thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400",
-      duration: "28:15",
-      views: "15.2k",
-      publishDate: "2024-01-10",
-      url: "https://youtube.com/watch?v=example3",
-      tags: ["Interview Prep", "Algorithms", "Data Structures", "Career"]
+  // Format duration from ISO 8601 to readable format
+  const formatDuration = (duration: string): string => {
+    const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    if (!match) return '0:00';
+    
+    const hours = parseInt(match[1] || '0');
+    const minutes = parseInt(match[2] || '0');
+    const seconds = parseInt(match[3] || '0');
+    
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
-  ];
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  // Format view count
+  const formatViews = (views: string): string => {
+    const num = parseInt(views);
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M`;
+    } else if (num >= 1000) {
+      return `${(num / 1000).toFixed(1)}k`;
+    }
+    return num.toString();
+  };
+
+  // Format subscriber count
+  const formatSubscribers = (count: string): string => {
+    const num = parseInt(count);
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M`;
+    } else if (num >= 1000) {
+      return `${(num / 1000).toFixed(1)}k`;
+    }
+    return num.toString();
+  };
+
+  useEffect(() => {
+    const fetchYouTubeData = async () => {
+      try {
+        const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+        const channelId = import.meta.env.VITE_YOUTUBE_CHANNEL_ID;
+
+        if (!apiKey || !channelId) {
+          throw new Error('YouTube API key or Channel ID not configured');
+        }
+
+        // Fetch channel statistics
+        const channelResponse = await fetch(
+          `https://www.googleapis.com/youtube/v3/channels?part=statistics,snippet&id=${channelId}&key=${apiKey}`
+        );
+        const channelData = await channelResponse.json();
+
+        if (channelData.items && channelData.items.length > 0) {
+          const channel = channelData.items[0];
+          setChannelStats({
+            subscriberCount: channel.statistics.subscriberCount,
+            videoCount: channel.statistics.videoCount,
+            viewCount: channel.statistics.viewCount,
+            channelTitle: channel.snippet.title,
+            channelUrl: `https://youtube.com/channel/${channelId}`
+          });
+        }
+
+        // Fetch latest videos
+        const videosResponse = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&order=date&maxResults=6&key=${apiKey}`
+        );
+        const videosData = await videosResponse.json();
+
+        if (videosData.items) {
+          // Get detailed video information including duration and view count
+          const videoIds = videosData.items.map((item: any) => item.id.videoId).join(',');
+          const detailsResponse = await fetch(
+            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${videoIds}&key=${apiKey}`
+          );
+          const detailsData = await detailsResponse.json();
+
+          const formattedVideos: YouTubeVideo[] = videosData.items.map((item: any, index: number) => {
+            const details = detailsData.items[index];
+            return {
+              id: item.id.videoId,
+              title: item.snippet.title,
+              description: item.snippet.description,
+              thumbnail: item.snippet.thumbnails.maxres?.url || item.snippet.thumbnails.high?.url,
+              duration: formatDuration(details.contentDetails.duration),
+              views: formatViews(details.statistics.viewCount),
+              publishDate: item.snippet.publishedAt,
+              url: `https://youtube.com/watch?v=${item.id.videoId}`,
+              tags: item.snippet.tags?.slice(0, 3) || []
+            };
+          });
+
+          setVideos(formattedVideos);
+        }
+      } catch (err) {
+        console.error('Error fetching YouTube data:', err);
+        setError('Failed to load YouTube videos');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchYouTubeData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="youtube" className="py-20 bg-muted/30" ref={ref}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon-blue mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading YouTube videos...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="youtube" className="py-20 bg-muted/30" ref={ref}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-red-500">{error}</p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Please check your API configuration
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="youtube" className="py-20 bg-muted/30" ref={ref}>
@@ -139,43 +260,45 @@ const YouTubeSection = () => {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-center mt-12"
-        >
-          <div className="mb-8 p-6 glass rounded-xl">
-            <h3 className="text-2xl font-semibold mb-4">Channel Statistics</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div>
-                <div className="text-3xl font-bold text-neon-blue">25+</div>
-                <div className="text-muted-foreground">Videos</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-neon-purple">1.2k</div>
-                <div className="text-muted-foreground">Subscribers</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-neon-pink">50k+</div>
-                <div className="text-muted-foreground">Total Views</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-neon-green">98%</div>
-                <div className="text-muted-foreground">Like Ratio</div>
+        {channelStats && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="text-center mt-12"
+          >
+            <div className="mb-8 p-6 glass rounded-xl">
+              <h3 className="text-2xl font-semibold mb-4">{channelStats.channelTitle} Statistics</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div>
+                  <div className="text-3xl font-bold text-neon-blue">{channelStats.videoCount}</div>
+                  <div className="text-muted-foreground">Videos</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-neon-purple">{formatSubscribers(channelStats.subscriberCount)}</div>
+                  <div className="text-muted-foreground">Subscribers</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-neon-pink">{formatViews(channelStats.viewCount)}</div>
+                  <div className="text-muted-foreground">Total Views</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-neon-green">98%</div>
+                  <div className="text-muted-foreground">Like Ratio</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => window.open('https://youtube.com/@alexjohnson', '_blank')}
-            className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-          >
-            Subscribe to Channel
-          </Button>
-        </motion.div>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.open(channelStats.channelUrl, '_blank')}
+              className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+            >
+              Subscribe to Channel
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
