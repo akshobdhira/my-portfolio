@@ -32,25 +32,39 @@ const AnimatedNeuralNetwork = () => {
     // Generate random particles
     const generateParticles = () => {
       const newParticles: Particle[] = [];
-      const colors = ['#00d4ff', '#9945ff', '#ff0080', '#00ff88'];
-      
       for (let i = 0; i < 50; i++) {
         newParticles.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
           size: Math.random() * 8 + 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          speedX: (Math.random() - 0.5) * 0.5,
-          speedY: (Math.random() - 0.5) * 0.5,
+          color: '#2193b0', // Oceanic blue
+          speedX: (Math.random() - 0.5) * 0.25, // Slower movement
+          speedY: (Math.random() - 0.5) * 0.25, // Slower movement
           opacity: Math.random() * 0.6 + 0.4,
         });
       }
-      
       setParticles(newParticles);
     };
-
     generateParticles();
+  }, []);
+
+  useEffect(() => {
+    // Animate particles
+    const interval = setInterval(() => {
+      setParticles((prev) =>
+        prev.map((p) => {
+          let nx = p.x + p.speedX;
+          let ny = p.y + p.speedY;
+          if (nx > 100) nx = 0;
+          if (nx < 0) nx = 100;
+          if (ny > 100) ny = 0;
+          if (ny < 0) ny = 100;
+          return { ...p, x: nx, y: ny };
+        })
+      );
+    }, 30);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -99,102 +113,6 @@ const AnimatedNeuralNetwork = () => {
           }}
         />
       ))}
-
-      {/* Cursor attraction effect */}
-      {particles.slice(0, 15).map((particle) => (
-        <motion.div
-          key={`attraction-${particle.id}`}
-          className="absolute rounded-full"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: `${particle.size * 0.6}px`,
-            height: `${particle.size * 0.6}px`,
-            backgroundColor: particle.color,
-            opacity: 0.3,
-          }}
-          animate={{
-            x: mousePosition.x * (particle.size * 2),
-            y: mousePosition.y * (particle.size * 2),
-            scale: [0.8, 1.4, 0.8],
-          }}
-          transition={{
-            x: {
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
-            },
-            y: {
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
-            },
-            scale: {
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }
-          }}
-        />
-      ))}
-
-      {/* Background glow effect */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-neon-blue/5 via-neon-purple/5 to-neon-pink/5"
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Connection lines between nearby particles */}
-      <svg className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
-        {particles.map((particle, i) => 
-          particles.slice(i + 1, i + 4).map((otherParticle, j) => {
-            const distance = Math.sqrt(
-              Math.pow(particle.x - otherParticle.x, 2) + 
-              Math.pow(particle.y - otherParticle.y, 2)
-            );
-            
-            if (distance < 25) {
-              return (
-                <motion.line
-                  key={`line-${i}-${j}`}
-                  x1={`${particle.x}%`}
-                  y1={`${particle.y}%`}
-                  x2={`${otherParticle.x}%`}
-                  y2={`${otherParticle.y}%`}
-                  stroke="url(#connectionGradient)"
-                  strokeWidth="1"
-                  initial={{ opacity: 0 }}
-                  animate={{ 
-                    opacity: [0.2, 0.6, 0.2],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: (i + j) * 0.1,
-                  }}
-                />
-              );
-            }
-            return null;
-          })
-        )}
-        
-        <defs>
-          <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgb(0, 212, 255)" stopOpacity="0.4" />
-            <stop offset="50%" stopColor="rgb(153, 69, 255)" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="rgb(255, 0, 128)" stopOpacity="0.4" />
-          </linearGradient>
-        </defs>
-      </svg>
     </motion.div>
   );
 };

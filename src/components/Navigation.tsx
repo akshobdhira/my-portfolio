@@ -14,10 +14,10 @@ const Navigation = ({ activeSection }: NavigationProps) => {
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' },
-    { id: 'articles', label: 'Articles' },
-    { id: 'profiles', label: 'Profiles' },
     { id: 'youtube', label: 'Videos' },
+    { id: 'articles', label: 'Articles' },
+    { id: 'contact', label: 'Contact' },
+    // { id: 'profiles', label: 'Profiles' },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -40,7 +40,7 @@ const Navigation = ({ activeSection }: NavigationProps) => {
             whileHover={{ scale: 1.05 }}
             className="font-bold text-xl gradient-text"
           >
-            Portfolio
+            R N R
           </motion.div>
 
           {/* Desktop Navigation */}

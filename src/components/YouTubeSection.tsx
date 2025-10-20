@@ -60,9 +60,10 @@ const YouTubeSection = () => {
             YouTube <span className="gradient-text">Videos</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-8" />
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Educational content and tutorials sharing my knowledge in programming, 
-            web development, and computer science concepts.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center">
+            Hands-on tech content in cybersecurity, AI, data science, and emerging tech<br className="hidden sm:block" />
+            featuring breaking down tools, building projects,<br className="hidden sm:block" />
+            and showing how it really works.
           </p>
         </motion.div>
 
@@ -75,7 +76,7 @@ const YouTubeSection = () => {
               transition={{ delay: index * 0.2, duration: 0.8 }}
             >
               <Card 
-                className="glass border-0 h-full card-hover group cursor-pointer"
+                className="glass border-0 h-full card-hover group cursor-pointer bg-gradient-to-br from-blue-100 to-blue-300 dark:bg-card"
                 onClick={() => window.open(video.url, '_blank')}
               >
                 <div className="relative overflow-hidden rounded-t-lg">

@@ -62,22 +62,6 @@ const AboutSection = () => {
             </p>
 
             <div className="grid grid-cols-2 gap-6 pt-6">
-              <div className="text-center p-4 glass rounded-lg">
-                <div className="text-3xl font-bold text-neon-blue">50+</div>
-                <div className="text-sm text-muted-foreground">Projects Completed</div>
-              </div>
-              <div className="text-center p-4 glass rounded-lg">
-                <div className="text-3xl font-bold text-neon-purple">3.8</div>
-                <div className="text-sm text-muted-foreground">CGPA</div>
-              </div>
-              <div className="text-center p-4 glass rounded-lg">
-                <div className="text-3xl font-bold text-neon-pink">15+</div>
-                <div className="text-sm text-muted-foreground">Technologies</div>
-              </div>
-              <div className="text-center p-4 glass rounded-lg">
-                <div className="text-3xl font-bold text-neon-green">2+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div>
             </div>
           </motion.div>
         </div>

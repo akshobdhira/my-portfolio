@@ -29,7 +29,7 @@ const ParticlesBackground = () => {
         this.size = Math.random() * 3 + 1;
         this.speedX = (Math.random() - 0.5) * 2;
         this.speedY = (Math.random() - 0.5) * 2;
-        this.color = Math.random() > 0.5 ? '#00d4ff' : '#9945ff';
+        this.color = '#ffffff'; // White particles
         this.opacity = Math.random() * 0.5 + 0.2;
       }
 
@@ -84,7 +84,7 @@ const ParticlesBackground = () => {
           if (distance < 150) {
             ctx.save();
             ctx.globalAlpha = (150 - distance) / 150 * 0.2;
-            ctx.strokeStyle = '#00d4ff';
+            ctx.strokeStyle = '#ffffff'; // White connecting lines
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);

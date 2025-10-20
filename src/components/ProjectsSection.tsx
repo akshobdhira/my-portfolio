@@ -108,7 +108,7 @@ const ProjectsSection = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.8 }}
-              className="group relative glass rounded-xl overflow-hidden card-hover"
+              className="group relative glass rounded-xl overflow-hidden card-hover bg-gradient-to-br from-blue-100 to-blue-300 dark:bg-card"
             >
               <div className="relative h-48 overflow-hidden">
                 <img

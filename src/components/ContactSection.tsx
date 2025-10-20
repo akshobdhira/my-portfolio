@@ -157,7 +157,7 @@ const ContactSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            <Card className="glass border-0">
+            <Card className="glass border-0 bg-gradient-to-br from-blue-100 to-blue-300 dark:bg-card">
               <CardHeader>
                 <CardTitle className="text-2xl">Send Message</CardTitle>
               </CardHeader>

@@ -7,7 +7,7 @@ import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
 import ContactSection from '@/components/ContactSection';
 import LinkedInArticles from '@/components/LinkedInArticles';
-import CodingProfiles from '@/components/CodingProfiles';
+// import CodingProfiles from '@/components/CodingProfiles';
 import YouTubeSection from '@/components/YouTubeSection';
 import ThemeToggle from '@/components/ThemeToggle';
 import ParticlesBackground from '@/components/ParticlesBackground';
@@ -44,10 +44,10 @@ const Index = () => {
         <AboutSection />
         <ProjectsSection />
         <SkillsSection />
-        <ContactSection />
-        <LinkedInArticles />
-        <CodingProfiles />
         <YouTubeSection />
+        <LinkedInArticles />
+        <ContactSection />
+        {/* <CodingProfiles /> */}
       </main>
     </div>
   );

@@ -74,7 +74,7 @@ const LinkedInArticles = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.8 }}
             >
-              <Card className="glass border-0 h-full card-hover group">
+              <Card className="glass border-0 h-full card-hover group bg-gradient-to-br from-blue-100 to-blue-300 dark:bg-card">
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
                     <div className="text-sm text-muted-foreground">
