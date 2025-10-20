@@ -98,9 +98,9 @@ const YouTubeSection = () => {
           });
         }
 
-        // Fetch latest videos
+        // Fetch latest videos (excluding shorts - videos longer than 60 seconds)
         const videosResponse = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&order=date&maxResults=6&key=${apiKey}`
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&order=date&maxResults=50&key=${apiKey}`
         );
         const videosData = await videosResponse.json();
 
@@ -112,22 +112,39 @@ const YouTubeSection = () => {
           );
           const detailsData = await detailsResponse.json();
 
-          const formattedVideos: YouTubeVideo[] = videosData.items.map((item: any, index: number) => {
-            const details = detailsData.items[index];
-            return {
-              id: item.id.videoId,
-              title: item.snippet.title,
-              description: item.snippet.description,
-              thumbnail: item.snippet.thumbnails.maxres?.url || item.snippet.thumbnails.high?.url,
-              duration: formatDuration(details.contentDetails.duration),
-              views: formatViews(details.statistics.viewCount),
-              publishDate: item.snippet.publishedAt,
-              url: `https://youtube.com/watch?v=${item.id.videoId}`,
-              tags: item.snippet.tags?.slice(0, 3) || []
-            };
-          });
+          // Filter out shorts (videos under 60 seconds) and get only 3 videos
+          const longVideos: YouTubeVideo[] = [];
 
-          setVideos(formattedVideos);
+          for (let i = 0; i < videosData.items.length && longVideos.length < 3; i++) {
+            const item = videosData.items[i];
+            const details = detailsData.items[i];
+
+            // Parse duration to check if it's longer than 60 seconds
+            const durationMatch = details.contentDetails.duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+            if (durationMatch) {
+              const hours = parseInt(durationMatch[1] || '0');
+              const minutes = parseInt(durationMatch[2] || '0');
+              const seconds = parseInt(durationMatch[3] || '0');
+              const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+              // Only include videos longer than 60 seconds (not shorts)
+              if (totalSeconds > 60) {
+                longVideos.push({
+                  id: item.id.videoId,
+                  title: item.snippet.title,
+                  description: item.snippet.description,
+                  thumbnail: item.snippet.thumbnails.maxres?.url || item.snippet.thumbnails.high?.url,
+                  duration: formatDuration(details.contentDetails.duration),
+                  views: formatViews(details.statistics.viewCount),
+                  publishDate: item.snippet.publishedAt,
+                  url: `https://youtube.com/watch?v=${item.id.videoId}`,
+                  tags: item.snippet.tags?.slice(0, 3) || []
+                });
+              }
+            }
+          }
+
+          setVideos(longVideos);
         }
       } catch (err) {
         console.error('Error fetching YouTube data:', err);
