@@ -48,13 +48,13 @@ const ContactSection = () => {
   const contactInfo = [
     {
       title: "Email",
-      value: "alex.johnson@email.com",
+      value: "akshobdhiraofficial@gmail.com",
       icon: "📧",
-      link: "mailto:alex.johnson@email.com"
+      link: "mailto:akshobdhiraofficial@email.com"
     },
     {
       title: "Phone",
-      value: "+91 98765 43210",
+      value: "+91 6380490121",
       icon: "📱",
       link: "tel:+919876543210"
     },
