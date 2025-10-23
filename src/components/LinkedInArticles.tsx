@@ -23,7 +23,7 @@ const LinkedInArticles = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const MEDIUM_USERNAME = 'YOUR_MEDIUM_USERNAME';
+  const MEDIUM_USERNAME = 'akshobdhira';
   const MEDIUM_RSS_URL = `https://medium.com/feed/@${MEDIUM_USERNAME}`;
 
   useEffect(() => {
