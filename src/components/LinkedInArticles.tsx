@@ -41,7 +41,7 @@ const LinkedInArticles = () => {
         const data = await response.json();
 
         if (data.status === 'ok' && data.items) {
-          setArticles(data.items.slice(0, 6));
+          setArticles(data.items.slice(0, 3));
         } else {
           throw new Error('Invalid response from RSS feed');
         }
