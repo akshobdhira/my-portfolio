@@ -9,7 +9,7 @@ const SkillsSection = () => {
 
   const skillCategories = [
     {
-      title: "Frontend Development",
+      title: "Cyber Security ",
       skills: [
         { name: "React.js", level: 90, color: "from-blue-500 to-cyan-500" },
         { name: "TypeScript", level: 85, color: "from-blue-600 to-indigo-600" },
