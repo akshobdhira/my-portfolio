@@ -32,8 +32,12 @@ const AboutSection = () => {
             <div className="relative w-80 h-80 mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full animate-pulse" />
               <div className="absolute inset-2 bg-background rounded-full" />
-              <div className="absolute inset-4 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded-full flex items-center justify-center">
-                <div className="text-6xl">👨‍💻</div>
+              <div className="absolute inset-4 rounded-full overflow-hidden">
+                <img
+                  src="/Gemini_Generated_Image_vs33apvs33apvs33.png"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </motion.div>
