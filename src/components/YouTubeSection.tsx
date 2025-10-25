@@ -174,11 +174,37 @@ const YouTubeSection = () => {
     return (
       <section id="youtube" className="py-20 bg-muted/30" ref={ref}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-red-500">{error}</p>
-            <p className="text-sm text-muted-foreground mt-2">
-              Please check your API configuration
-            </p>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              YouTube <span className="gradient-text">Videos</span>
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-8" />
+          </motion.div>
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="p-6 rounded-lg border border-red-500/20 bg-red-500/10">
+              <p className="text-red-500 font-semibold mb-2">{error}</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                To display YouTube videos, you need to configure your YouTube API credentials.
+              </p>
+              <div className="text-left text-sm text-muted-foreground space-y-2 bg-muted/30 p-4 rounded">
+                <p className="font-semibold">Setup Instructions:</p>
+                <ol className="list-decimal list-inside space-y-1 ml-2">
+                  <li>Copy the file <code className="bg-muted px-1 py-0.5 rounded" aria-label="environment example file">.env.example</code> to <code className="bg-muted px-1 py-0.5 rounded" aria-label="environment file">.env</code></li>
+                  <li>Get a YouTube API key from <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:underline" aria-label="Google Cloud Console (opens in new tab)">Google Cloud Console</a></li>
+                  <li>Find your Channel ID in your <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:underline" aria-label="YouTube Settings (opens in new tab)">YouTube Settings</a></li>
+                  <li>Add both values to your <code className="bg-muted px-1 py-0.5 rounded" aria-label="environment file">.env</code> file</li>
+                  <li>Restart the development server</li>
+                </ol>
+                <p className="mt-3 text-xs">
+                  See the README.md file for detailed configuration instructions.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
