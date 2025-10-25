@@ -39,13 +39,20 @@ npm run dev
 To enable the YouTube video section, you need to set up the following environment variables:
 
 1. **VITE_YOUTUBE_API_KEY**: Your YouTube Data API v3 key
-   - Get it from [Google Cloud Console](https://console.developers.google.com/)
-   - Enable the YouTube Data API v3 for your project
+   - Go to [Google Cloud Console](https://console.developers.google.com/)
+   - Create a new project or select an existing one
+   - Enable the **YouTube Data API v3** for your project
+   - Create credentials (API key) under "Credentials" section
+   - Copy your API key
 
 2. **VITE_YOUTUBE_CHANNEL_ID**: Your YouTube channel ID
-   - Find it in your [YouTube Advanced Settings](https://www.youtube.com/account_advanced)
+   - Go to [YouTube Studio](https://studio.youtube.com/)
+   - Click on "Settings" → "Channel" → "Advanced settings"
+   - Find your Channel ID and copy it
 
 Create a `.env` file in the root directory with these variables (see `.env.example` for reference).
+
+**Note**: The `.env` file is gitignored for security. For deployment platforms (Vercel, Netlify, etc.), add these variables in their respective environment variable settings.
 
 ## Deployment
 
