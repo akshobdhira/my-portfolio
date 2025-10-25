@@ -194,10 +194,10 @@ const YouTubeSection = () => {
               <div className="text-left text-sm text-muted-foreground space-y-2 bg-muted/30 p-4 rounded">
                 <p className="font-semibold">Setup Instructions:</p>
                 <ol className="list-decimal list-inside space-y-1 ml-2">
-                  <li>Copy <code className="bg-muted px-1 py-0.5 rounded">.env.example</code> to <code className="bg-muted px-1 py-0.5 rounded">.env</code></li>
-                  <li>Get a YouTube API key from <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:underline">Google Cloud Console</a></li>
-                  <li>Find your Channel ID in your <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:underline">YouTube Settings</a></li>
-                  <li>Add both values to your <code className="bg-muted px-1 py-0.5 rounded">.env</code> file</li>
+                  <li>Copy the file <code className="bg-muted px-1 py-0.5 rounded" aria-label="environment example file">.env.example</code> to <code className="bg-muted px-1 py-0.5 rounded" aria-label="environment file">.env</code></li>
+                  <li>Get a YouTube API key from <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:underline" aria-label="Google Cloud Console (opens in new tab)">Google Cloud Console</a></li>
+                  <li>Find your Channel ID in your <a href="https://www.youtube.com/account_advanced" target="_blank" rel="noopener noreferrer" className="text-neon-blue hover:underline" aria-label="YouTube Settings (opens in new tab)">YouTube Settings</a></li>
+                  <li>Add both values to your <code className="bg-muted px-1 py-0.5 rounded" aria-label="environment file">.env</code> file</li>
                   <li>Restart the development server</li>
                 </ol>
                 <p className="mt-3 text-xs">
