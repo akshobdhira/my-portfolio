@@ -14,19 +14,19 @@ const ProjectsSection = () => {
   const projects = [
     {
       id: 1,
-      title: "AI-Powered E-Commerce Platform",
-      description: "Full-stack e-commerce platform with AI-driven product recommendations and real-time inventory management.",
-      longDescription: "This comprehensive e-commerce platform leverages machine learning algorithms to provide personalized product recommendations. Built with React.js frontend, Node.js backend, and MongoDB database. Features include user authentication, payment integration, admin dashboard, and real-time inventory tracking.",
+      title: "Clarity-steps",
+      description: "AI Career & Acadenic Companion for Parents to help their children ",
+      longDescription: "Indian parents want to support their child's academic and career journey, but often struggle with what to do on a week-to-week basis. Well-intentioned conversations turn into pressure, guidance becomes comparison, and support leads to confusion. Most existing solutions offer static advice or one-time counselling that fails to adapt to a child's real context. This project takes a different approach by focusing on clear, practical actions parents can follow every week.",
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-      technologies: ["React", "Node.js", "MongoDB", "Python", "TensorFlow", "Stripe API"],
-      github: "https://github.com",
-      demo: "https://demo.com",
+      technologies: ["Python", "google-adk", "Streamlit"],
+      github: "https://github.com/akshobdhira/clarity-steps",
+      demo: "https://clarity-steps.streamlit.app/",
       features: [
-        "AI-powered product recommendations",
-        "Real-time inventory management",
-        "Secure payment processing",
-        "Admin dashboard with analytics",
-        "Mobile-responsive design"
+        "Analyzes parent concerns to identify hidden pressure points and blind spots",
+        "Generates a personalized 12-week, week-by-week action plan",
+        "Focuses on practical weekly actions instead of generic career advice",
+        "Works through a simple web interface with no sign-up required",
+        "Downloadable PDF report with actionable insights"
       ]
     },
     {
