@@ -1,10 +1,15 @@
-
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
 const ProjectsSection = () => {
   const ref = useRef(null);
@@ -15,9 +20,11 @@ const ProjectsSection = () => {
     {
       id: 1,
       title: "Clarity-steps",
-      description: "AI Career & Acadenic Companion for Parents to help their children ",
-      longDescription: "Indian parents want to support their child's academic and career journey, but often struggle with what to do on a week-to-week basis. Well-intentioned conversations turn into pressure, guidance becomes comparison, and support leads to confusion. Most existing solutions offer static advice or one-time counselling that fails to adapt to a child's real context. This project takes a different approach by focusing on clear, practical actions parents can follow every week.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+      description:
+        "AI Career & Acadenic Companion for Parents to help their children ",
+      longDescription:
+        "Indian parents want to support their child’s academic and career journey, but often struggle with what to do on a week-to-week basis. Well-intentioned conversations turn into pressure, guidance becomes comparison, and support leads to confusion. Most existing solutions offer static advice or one-time counselling that fails to adapt to a child’s real context. This project takes a different approach by focusing on clear, practical actions parents can follow every week.",
+      image: "public/clarity-steps1.png",
       technologies: ["Python", "google-adk", "Streamlit"],
       github: "https://github.com/akshobdhira/clarity-steps",
       demo: "https://clarity-steps.streamlit.app/",
@@ -26,16 +33,25 @@ const ProjectsSection = () => {
         "Generates a personalized 12-week, week-by-week action plan",
         "Focuses on practical weekly actions instead of generic career advice",
         "Works through a simple web interface with no sign-up required",
-        "Downloadable PDF report with actionable insights"
-      ]
+        "Downloadable PDF report ",
+      ],
     },
     {
       id: 2,
       title: "Smart Campus Management System",
-      description: "IoT-integrated campus management system for student attendance, facility booking, and resource optimization.",
-      longDescription: "A comprehensive campus management solution that integrates IoT sensors for smart attendance tracking, facility management, and resource optimization. The system provides real-time analytics and automated reporting for administrative efficiency.",
+      description:
+        "IoT-integrated campus management system for student attendance, facility booking, and resource optimization.",
+      longDescription:
+        "A comprehensive campus management solution that integrates IoT sensors for smart attendance tracking, facility management, and resource optimization. The system provides real-time analytics and automated reporting for administrative efficiency.",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      technologies: ["React", "Python", "PostgreSQL", "Arduino", "MQTT", "Chart.js"],
+      technologies: [
+        "React",
+        "Python",
+        "PostgreSQL",
+        "Arduino",
+        "MQTT",
+        "Chart.js",
+      ],
       github: "https://github.com",
       demo: "https://demo.com",
       features: [
@@ -43,16 +59,25 @@ const ProjectsSection = () => {
         "Facility booking system",
         "Resource optimization algorithms",
         "Real-time analytics dashboard",
-        "Automated report generation"
-      ]
+        "Automated report generation",
+      ],
     },
     {
       id: 3,
       title: "ML-Based Stock Prediction App",
-      description: "Machine learning application for stock price prediction using historical data and technical indicators.",
-      longDescription: "Advanced stock prediction application using LSTM neural networks and technical analysis indicators. The system processes historical stock data, news sentiment, and market indicators to generate price predictions with confidence intervals.",
+      description:
+        "Machine learning application for stock price prediction using historical data and technical indicators.",
+      longDescription:
+        "Advanced stock prediction application using LSTM neural networks and technical analysis indicators. The system processes historical stock data, news sentiment, and market indicators to generate price predictions with confidence intervals.",
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-      technologies: ["Python", "TensorFlow", "React", "FastAPI", "PostgreSQL", "Redis"],
+      technologies: [
+        "Python",
+        "TensorFlow",
+        "React",
+        "FastAPI",
+        "PostgreSQL",
+        "Redis",
+      ],
       github: "https://github.com",
       demo: "https://demo.com",
       features: [
@@ -60,16 +85,25 @@ const ProjectsSection = () => {
         "Technical indicator analysis",
         "News sentiment integration",
         "Real-time data processing",
-        "Interactive chart visualization"
-      ]
+        "Interactive chart visualization",
+      ],
     },
     {
       id: 4,
       title: "Real-time Chat Application",
-      description: "Modern chat application with real-time messaging, file sharing, and video calling capabilities.",
-      longDescription: "Feature-rich chat application built with modern web technologies. Supports real-time messaging, file sharing, group chats, and video calling. Includes message encryption, user presence indicators, and message history search.",
+      description:
+        "Modern chat application with real-time messaging, file sharing, and video calling capabilities.",
+      longDescription:
+        "Feature-rich chat application built with modern web technologies. Supports real-time messaging, file sharing, group chats, and video calling. Includes message encryption, user presence indicators, and message history search.",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-      technologies: ["React", "Socket.io", "Node.js", "WebRTC", "MongoDB", "Express"],
+      technologies: [
+        "React",
+        "Socket.io",
+        "Node.js",
+        "WebRTC",
+        "MongoDB",
+        "Express",
+      ],
       github: "https://github.com",
       demo: "https://demo.com",
       features: [
@@ -77,9 +111,9 @@ const ProjectsSection = () => {
         "File sharing capabilities",
         "Video calling integration",
         "Group chat functionality",
-        "Message encryption"
-      ]
-    }
+        "Message encryption",
+      ],
+    },
   ];
 
   return (
@@ -96,8 +130,8 @@ const ProjectsSection = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-8" />
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore my portfolio of innovative projects that showcase my technical skills 
-            and passion for creating impactful solutions.
+            Explore my portfolio of innovative projects that showcase my
+            technical skills and passion for creating impactful solutions.
           </p>
         </motion.div>
 
@@ -144,14 +178,14 @@ const ProjectsSection = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => window.open(project.github, '_blank')}
+                    onClick={() => window.open(project.github, "_blank")}
                     className="flex-1"
                   >
                     GitHub
                   </Button>
                   <Button
                     size="sm"
-                    onClick={() => window.open(project.demo, '_blank')}
+                    onClick={() => window.open(project.demo, "_blank")}
                     className="flex-1 bg-neon-blue hover:bg-neon-blue/90"
                   >
                     Live Demo
@@ -168,7 +202,9 @@ const ProjectsSection = () => {
                     </DialogTrigger>
                     <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                       <DialogHeader>
-                        <DialogTitle className="text-2xl">{project.title}</DialogTitle>
+                        <DialogTitle className="text-2xl">
+                          {project.title}
+                        </DialogTitle>
                       </DialogHeader>
                       <div className="space-y-6">
                         <img
@@ -176,8 +212,10 @@ const ProjectsSection = () => {
                           alt={project.title}
                           className="w-full h-64 object-cover rounded-lg"
                         />
-                        <p className="text-muted-foreground">{project.longDescription}</p>
-                        
+                        <p className="text-muted-foreground">
+                          {project.longDescription}
+                        </p>
+
                         <div>
                           <h4 className="font-semibold mb-3">Key Features:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
@@ -188,7 +226,9 @@ const ProjectsSection = () => {
                         </div>
 
                         <div>
-                          <h4 className="font-semibold mb-3">Technologies Used:</h4>
+                          <h4 className="font-semibold mb-3">
+                            Technologies Used:
+                          </h4>
                           <div className="flex flex-wrap gap-2">
                             {project.technologies.map((tech) => (
                               <Badge key={tech} variant="secondary">
@@ -201,13 +241,15 @@ const ProjectsSection = () => {
                         <div className="flex gap-3 pt-4">
                           <Button
                             variant="outline"
-                            onClick={() => window.open(project.github, '_blank')}
+                            onClick={() =>
+                              window.open(project.github, "_blank")
+                            }
                             className="flex-1"
                           >
                             View on GitHub
                           </Button>
                           <Button
-                            onClick={() => window.open(project.demo, '_blank')}
+                            onClick={() => window.open(project.demo, "_blank")}
                             className="flex-1 bg-neon-blue hover:bg-neon-blue/90"
                           >
                             Live Demo
