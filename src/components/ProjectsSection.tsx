@@ -90,28 +90,19 @@ const ProjectsSection = () => {
     },
     {
       id: 4,
-      title: "Real-time Chat Application",
+      title: "Vulnera",
       description:
-        "Modern chat application with real-time messaging, file sharing, and video calling capabilities.",
+        "a web app vulnerability scanner that focuses on subdomain enumeration, clickjacking etc.",
       longDescription:
-        "Feature-rich chat application built with modern web technologies. Supports real-time messaging, file sharing, group chats, and video calling. Includes message encryption, user presence indicators, and message history search.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-      technologies: [
-        "React",
-        "Socket.io",
-        "Node.js",
-        "WebRTC",
-        "MongoDB",
-        "Express",
-      ],
-      github: "https://github.com",
-      demo: "https://demo.com",
+        "Vulnera is my first python project. It is a web app vulnerability scanner that focuses on subdomain enumeration, clickjacking, and host header injection. Vulnera helps developers and security professionals proactively mitigate risks and safeguard their web applications",
+      image: "public/vulnera.png",
+      technologies: ["Python"],
+      github: "https://github.com/akshobdhira/vulnera",
+      demo: "https://github.com/akshobdhira/vulnera",
       features: [
-        "Real-time messaging",
-        "File sharing capabilities",
-        "Video calling integration",
-        "Group chat functionality",
-        "Message encryption",
+        "enumerates subdomain",
+        "checks for clickjacking vulnerability",
+        "checks for host header injection vulnerability",
       ],
     },
   ];
@@ -148,7 +139,7 @@ const ProjectsSection = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
