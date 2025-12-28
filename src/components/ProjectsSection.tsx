@@ -24,7 +24,7 @@ const ProjectsSection = () => {
         "AI Career & Acadenic Companion for Parents to help their children ",
       longDescription:
         "Indian parents want to support their child’s academic and career journey, but often struggle with what to do on a week-to-week basis. Well-intentioned conversations turn into pressure, guidance becomes comparison, and support leads to confusion. Most existing solutions offer static advice or one-time counselling that fails to adapt to a child’s real context. This project takes a different approach by focusing on clear, practical actions parents can follow every week.",
-      image: "/clarity-steps1.png",
+      image: "./clarity-steps1.png",
       technologies: ["Python", "google-adk", "Streamlit"],
       github: "https://github.com/akshobdhira/clarity-steps",
       demo: "https://clarity-steps.streamlit.app/",
