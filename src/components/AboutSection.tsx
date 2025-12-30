@@ -65,7 +65,15 @@ const AboutSection = () => {
               efficient code and creating user experiences that make a difference.
             </p>
 
-            <div className="grid grid-cols-2 gap-6 pt-6">
+            <div className="pt-8">
+              <a
+                href="https://cyraksh.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3 bg-gradient-to-r from-neon-blue to-neon-purple text-white font-semibold rounded-full hover:shadow-lg hover:shadow-neon-blue/50 transition-all duration-300 transform hover:scale-105"
+              >
+                Learn More About My Startup
+              </a>
             </div>
           </motion.div>
         </div>
