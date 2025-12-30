@@ -70,7 +70,7 @@ const AboutSection = () => {
                 href="https://cyraksh.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-8 py-3 bg-gradient-to-r from-neon-blue to-neon-purple text-white font-semibold rounded-full hover:shadow-lg hover:shadow-neon-blue/50 transition-all duration-300 transform hover:scale-105"
+                className="inline-block px-8 py-3 bg-gradient-to-r from-neon-blue to-neon-purple text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-neon-blue/50 transition-all duration-300 transform hover:scale-105"
               >
                 Learn More About My Startup
               </a>
